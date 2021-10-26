@@ -5,9 +5,15 @@ declare(strict_types=1);
 
 //we are going to use session variables, so we need to enable sessions
 session_start();
+if(isset($_POST['submit'])) {
+    $_SESSION['email'] = $$email;
+    $_SESSION['street'] = $$street;
+    $_SESSION['streetnumber'] = $$streetnumber;
+    $_SESSION['city'] = $$city;
+    $_SESSION['zipcode'] = $$zipcode;
+}
 
-function whatIsHappening()
-{
+function whatIsHappening() {
     echo '<h2>$_GET</h2>';
     var_dump($_GET);
     echo '<h2>$_POST</h2>';
@@ -19,6 +25,7 @@ function whatIsHappening()
 };
 //whatIsHappening();
 //your products with their price.
+
 $products = [
     ['name' => 'Club Ham', 'price' => 3.20],
     ['name' => 'Club Cheese', 'price' => 3],
@@ -73,6 +80,13 @@ echo $street;
 echo $$street;
 echo $city;
 echo $$city;
+
+
+echo "your email is" . $_SESSION['email'] . "cool rite";
+echo $_SESSION['street'];
+echo $_SESSION['streetnumber'];
+echo $_SESSION['city'];
+echo $_SESSION['zipcode'];
 
 
 
