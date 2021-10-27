@@ -31,7 +31,6 @@ whatIsHappening();
         ['name' => 'Ice-tea', 'price' => 3],
     ];
 
-$totalValue = 0;
 
 $link = 0;
 //display food as default
@@ -46,7 +45,16 @@ else {
     $products = $food;
 }
 
-
+//check if checkboxes are checked
+$totalValue = 0;
+foreach ($products as $value) {
+    if (empty($_POST["products"])) {
+        echo "unchecked ";
+    }
+    else {
+        echo "checked ";
+    }
+}
 
 //give variables empty values
 $email = $street = $streetnumber = $city = $zipcode = "";
@@ -59,6 +67,9 @@ $zipcode = input($_POST["zipcode"]);
 
 //validate input
 function input($data) {
+    //$data = trim($data);
+    //$data = stripslashes($data);
+    //$data = htmlspecialchars($data);
     return $data;
 }
 
@@ -66,6 +77,7 @@ function input($data) {
 //calculate the delivery-time
 if ('express_delivery' == 5) {
     $express_delivery = "Your delivery will be here in 45 minutes!";
+    $totalValue = $totalValue + 5;
 }
 else {
     $express_delivery = "Your delivery will be here in about 2 hours.";
