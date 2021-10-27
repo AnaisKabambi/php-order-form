@@ -1,10 +1,11 @@
 <?php
-
 //this line makes PHP behave in a more strict way
-declare(strict_types=1);
-
+declare (strict_types=1);
 //we are going to use session variables, so we need to enable sessions
 session_start();
+
+require 'form-view.php';
+
 if(isset($_POST['submit'])) {
     $_SESSION['email'] = $$email;
     $_SESSION['street'] = $$street;
@@ -25,39 +26,62 @@ function whatIsHappening() {
 };
 //whatIsHappening();
 //your products with their price.
-
 $products = [
+    $product = [
+        ['name' => 'Club Ham', 'price' => 3.20],
+        ['name' => 'Club Cheese', 'price' => 3],
+        ['name' => 'Club Cheese & Ham', 'price' => 4],
+        ['name' => 'Club Chicken', 'price' => 4],
+        ['name' => 'Club Salmon', 'price' => 5]
+    ],
+    $product = [
+        ['name' => 'Cola', 'price' => 2],
+        ['name' => 'Fanta', 'price' => 2],
+        ['name' => 'Sprite', 'price' => 2],
+        ['name' => 'Ice-tea', 'price' => 3],
+    ],
+];
+
+/*$products = [
     ['name' => 'Club Ham', 'price' => 3.20],
     ['name' => 'Club Cheese', 'price' => 3],
     ['name' => 'Club Cheese & Ham', 'price' => 4],
     ['name' => 'Club Chicken', 'price' => 4],
     ['name' => 'Club Salmon', 'price' => 5]
-];
+];*/
 
-$products = [
+/*$products = [
     ['name' => 'Cola', 'price' => 2],
     ['name' => 'Fanta', 'price' => 2],
     ['name' => 'Sprite', 'price' => 2],
     ['name' => 'Ice-tea', 'price' => 3],
-];
+];*/
 
 $totalValue = 0;
 
-require 'form-view.php';
-
 function input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
     return $data;
 }
 //validate if email is filled in and valid
 if (empty($_POST["email"])) {
-    $emailErr = "Email is required";
-} else {
-    $email =input($_POST["email"]);
-    // check if e-mail address is well-formed
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $email = "Invalid email format";
+    $emailErr = "email is required";
+    }
+else {
+    $email = $_POST["email"];
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z\d\._ ]+@[a-zA-Z\d\._]+\.[a-zA-Z\d\._]{2,}+$/",$email)) {
+        $emailErr = "Invalid email format";
+    }else{
+        $email = $_POST["email"];
+        $_SESSION["email"]=$_POST["email"];
+
     }
 }
+
+
 //check if streetnumber and zipcode are numbers
 $streetnumber = $_POST['streetnumber'];
 if (is_numeric($streetnumber)) { echo $streetnumber;} else {echo "Please use numbers only.";}
