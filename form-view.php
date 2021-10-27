@@ -27,6 +27,7 @@
       <div class="form-group col-md-6">
         <label for="email">E-mail:</label>
         <input type="text" id="email" name="email" class="form-control"/>
+
       </div>
       <div></div>
     </div>
@@ -71,7 +72,7 @@
       <input type="checkbox" name="express_delivery" value="5" />
       Express delivery (+ 5 EUR)
     </label>
-
+    <div id="deliverytime" name="deliverytime"><?php echo $express_delivery?></div>
     <button type="submit" class="btn btn-primary">Order!</button>
   </form>
 
