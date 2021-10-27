@@ -73,7 +73,7 @@
       Express delivery (+ 5 EUR)
     </label>
     <div id="deliverytime" name="deliverytime"><?php echo $express_delivery?></div>
-    <button type="submit" class="btn btn-primary">Order!</button>
+    <button type="submit" class="btn btn-primary" onclick="email()">Order!</button>
   </form>
 
   <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>

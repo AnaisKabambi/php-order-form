@@ -107,5 +107,10 @@ if (is_numeric($streetnumber)) { echo $streetnumber;} else {echo "Please use num
 $zipcode = $_POST['zipcode'];
 if (is_numeric($zipcode)) {echo $zipcode;} else {echo "Please use numbers only.";}
 
-
+//send the e-mail
+function email ()
+{
+    echo "<script type='text/javascript'>alert('Your order has been received! It consists of $something. And will be sent to $street, $streetnumber <br> $zipcode, $city');</script>";
+}
+email();
 require 'form-view.php';
