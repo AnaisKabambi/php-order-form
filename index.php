@@ -4,16 +4,6 @@ declare (strict_types=1);
 //we are going to use session variables, so we need to enable sessions
 session_start();
 
-require 'form-view.php';
-
-if(isset($_POST['submit'])) {
-    $_SESSION['email'] = $$email;
-    $_SESSION['street'] = $$street;
-    $_SESSION['streetnumber'] = $$streetnumber;
-    $_SESSION['city'] = $$city;
-    $_SESSION['zipcode'] = $$zipcode;
-}
-
 function whatIsHappening() {
     echo '<h2>$_GET</h2>';
     var_dump($_GET);
@@ -24,47 +14,38 @@ function whatIsHappening() {
     echo '<h2>$_SESSION</h2>';
     var_dump($_SESSION);
 };
-//whatIsHappening();
+whatIsHappening();
+
 //your products with their price.
-$products = [
-    $product = [
+    $food = [
         ['name' => 'Club Ham', 'price' => 3.20],
         ['name' => 'Club Cheese', 'price' => 3],
         ['name' => 'Club Cheese & Ham', 'price' => 4],
         ['name' => 'Club Chicken', 'price' => 4],
         ['name' => 'Club Salmon', 'price' => 5]
-    ],
-    $product = [
+    ];
+    $drinks = [
         ['name' => 'Cola', 'price' => 2],
         ['name' => 'Fanta', 'price' => 2],
         ['name' => 'Sprite', 'price' => 2],
         ['name' => 'Ice-tea', 'price' => 3],
-    ],
-];
-
-/*$products = [
-    ['name' => 'Club Ham', 'price' => 3.20],
-    ['name' => 'Club Cheese', 'price' => 3],
-    ['name' => 'Club Cheese & Ham', 'price' => 4],
-    ['name' => 'Club Chicken', 'price' => 4],
-    ['name' => 'Club Salmon', 'price' => 5]
-];*/
-
-/*$products = [
-    ['name' => 'Cola', 'price' => 2],
-    ['name' => 'Fanta', 'price' => 2],
-    ['name' => 'Sprite', 'price' => 2],
-    ['name' => 'Ice-tea', 'price' => 3],
-];*/
+    ];
 
 $totalValue = 0;
+$change = 0;
 
-function input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
+//display food when link is clicked
+if (isset($_GET['food'])) {
+    $change = $_GET['food'];
 }
+//display drinks when link is clicked
+if (!$change) {
+    $products = $drinks;
+}
+else {
+    $products = $food;
+}
+
 //validate if email is filled in and valid
 if (empty($_POST["email"])) {
     $emailErr = "email is required";
@@ -90,12 +71,11 @@ if (is_numeric($zipcode)) {echo $zipcode;} else {echo "Please use numbers only."
 
 
 
-
 //get input
-$street = input($_POST["street"]);
-$streetnumber = input($_POST["streetnumber"]);
-$city = input($_POST["city"]);
-$zipcode = input($_POST["zipcode"]);
+$street = testinput($_POST["street"]);
+$streetnumber = testinput($_POST["streetnumber"]);
+$city = testinput($_POST["city"]);
+$zipcode = testinput($_POST["zipcode"]);
 
 //save input
 echo $email;
@@ -122,3 +102,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $city = input($_POST["city"]);
     $zipcode = input($_POST["zipcode"]);
 }*/
+
+
+if(isset($_POST['submit'])) {
+    $_SESSION['email'] = $$email;
+    $_SESSION['street'] = $$street;
+    $_SESSION['streetnumber'] = $$streetnumber;
+    $_SESSION['city'] = $$city;
+    $_SESSION['zipcode'] = $$zipcode;
+}
+
+
+
+function testinput($data) {
+    return $data;
+}
+
+require 'form-view.php';
